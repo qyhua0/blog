@@ -22,3 +22,33 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
+### VS Code ###
+.vscode/
+/blog-start/src/main/resources/application-local.properties
+/blog-start/src/main/resources/application-pro.properties
+/blog-web/src/main/resources/application-dev.properties
+/blog-common/src/main/java/top/modelx/blog/common/GenCodeNo.java
+/blog-web/src/main/java/top/modelx/blog/web/GenCodeNo.java
