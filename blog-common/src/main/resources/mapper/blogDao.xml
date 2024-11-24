@@ -2,12 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.modelx.blog.common.dao.BlogDao">
 
-<select id="blogList" resultType="top.modelx.blog.common.vo.BlogVo">
+    <select id="blogList" resultType="top.modelx.blog.common.vo.BlogVo">
 
-    SELECT b.*,u.nickname AS author_name,t.name AS category_name FROM  `blog_article` b
-    LEFT JOIN sys_user u ON u.id=b.author_id
-    LEFT JOIN blog_categories t ON t.id=b.category_id
+        SELECT b.*, u.nickname AS author_name, t.name AS category_name
+        FROM `blog_article` b
+                 LEFT JOIN sys_user u ON u.id = b.author_id
+                 LEFT JOIN blog_categories t ON t.id = b.category_id
+        <where>
+             b.status = 'P'
+                <if test="categoriesId != null">
+                   and b.category_id = #{categoriesId}
+                </if>
+        </where>
+        order by update_time desc
 
-</select>
+    </select>
+
+    <select id="getTagsList" resultType="top.modelx.blog.common.table.entity.BlogTags">
+
+        SELECT t2.id, t2.name
+        FROM blog_article_tags t1
+                 LEFT JOIN blog_tags t2 ON t1.tag_id = t2.id
+        WHERE t1.article_id = #{blogId}
+    </select>
+
+    <select id="getCategoriesList" resultType="top.modelx.blog.common.vo.BlogCategoriesVo">
+        SELECT c.*,IFNULL(b.using_count,0) AS using_count FROM blog_categories c
+               LEFT JOIN (SELECT category_id ,COUNT(id) AS using_count FROM blog_article WHERE STATUS='P' GROUP BY category_id ) b ON b.category_id=c.id
+
+        ORDER BY `order`
+
+    </select>
+    <select id="getBlogBy" resultType="top.modelx.blog.common.vo.BlogVo">
+
+        SELECT b.*, u.nickname AS author_name, t.name AS category_name
+        FROM `blog_article` b
+        LEFT JOIN sys_user u ON u.id = b.author_id
+        LEFT JOIN blog_categories t ON t.id = b.category_id
+        <where>
+            b.status = 'P'  and b.id = #{blogId}
+        </where>
+
+    </select>
 
 </mapper>

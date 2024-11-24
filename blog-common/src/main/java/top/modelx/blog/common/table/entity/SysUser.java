@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author zhenhua
- * @since 2024-11-22
+ * @since 2024-11-24
  */
 @TableName("sys_user")
 public class SysUser implements Serializable {

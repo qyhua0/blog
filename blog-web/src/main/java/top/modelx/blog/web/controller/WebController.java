@@ -7,8 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 import top.modelx.blog.common.service.BlogService;
 import top.modelx.blog.common.table.entity.BlogArticle;
 import top.modelx.blog.common.table.entity.BlogArticleContent;
+import top.modelx.blog.common.table.entity.BlogCategories;
 import top.modelx.blog.common.table.service.impl.BlogArticleContentServiceImpl;
 import top.modelx.blog.common.table.service.impl.BlogArticleServiceImpl;
+import top.modelx.blog.common.vo.BlogCategoriesVo;
 import top.modelx.blog.common.vo.BlogVo;
 
 import java.util.List;
@@ -31,26 +33,62 @@ public class WebController {
     @Autowired
     BlogService blogService;
 
-    //首页
+
+    /**
+     * 首页
+     * @return
+     */
     @GetMapping("/")
-    public ModelAndView index() {
+    public ModelAndView home() {
+        ModelAndView modelAndView = getIndexPage(null);
+        return modelAndView;
+    }
 
-        List<BlogVo> list= blogService.list();
+    /**
+     * 首页+分类
+     * @param categories_id
+     * @return
+     */
+    @GetMapping("/{categories_id}")
+    public ModelAndView index(@PathVariable Integer categories_id) {
 
-        // 创建 ModelAndView 并添加数据
+
+        ModelAndView modelAndView = getIndexPage(categories_id);
+
+        return modelAndView;
+    }
+
+    private ModelAndView getIndexPage(Integer categories_id) {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("blog_list", list);
 
-        return modelAndView; // 返回 ModelAndView
+        //分类
+        List<BlogCategoriesVo> categoriesList=blogService.getCategoriesList();
+        modelAndView.addObject("categories_list",categoriesList);
+
+        //博客列表
+        List<BlogVo> list= blogService.list(categories_id);
+        for(int i=0;i<list.size();i++){
+            BlogVo vo=list.get(i);
+            vo.setTags(blogService.getTagsBy(vo.getId()));
+        }
+
+        modelAndView.addObject("blog_list", list);
+        return modelAndView;
     }
 
 
-
-    //文章详情
+    /**
+     * 文章详情
+     * @param blogId
+     * @return
+     */
     @GetMapping("/view/{blogId}")
     public ModelAndView view(@PathVariable Long blogId) {
 
-        BlogArticle blogArticle=blogArticleService.getById(blogId);
+
+        BlogVo blogArticle=blogService.getBlogBy(blogId);
+
+
         BlogArticleContent content= blogArticleContentService.lambdaQuery().eq(BlogArticleContent::getBlogId, blogId).one();
 
         // 创建 ModelAndView 并添加数据
