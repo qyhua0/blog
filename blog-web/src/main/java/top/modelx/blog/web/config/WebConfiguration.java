@@ -13,6 +13,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import top.modelx.blog.web.config.interceptor.AccessInterceptor;
 import top.modelx.blog.web.config.interceptor.LogInterceptor;
 
 import java.time.LocalDate;
@@ -57,6 +58,11 @@ public class WebConfiguration implements WebMvcConfigurer {
         return new LogInterceptor();
     }
 
+    @Bean
+    public HandlerInterceptor getAccessInterceptor() {
+        return new AccessInterceptor();
+    }
+
 
     /**
      * 拦截器配置
@@ -65,8 +71,12 @@ public class WebConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(getLogInterceptor())
-                .excludePathPatterns("/css/**","/js/**")
+                .excludePathPatterns("/css/**","/js/**","/img/**")
                 .addPathPatterns("/**");
+
+
+        registry.addInterceptor(getAccessInterceptor())
+                .addPathPatterns("/admin/**");
 
     }
 

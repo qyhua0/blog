@@ -52,3 +52,5 @@ target/
 /blog-web/src/main/resources/application-dev.properties
 /blog-common/src/main/java/top/modelx/blog/common/GenCodeNo.java
 /blog-web/src/main/java/top/modelx/blog/web/GenCodeNo.java
+/doc/html/
+/blog-web/src/main/resources/templates/html/

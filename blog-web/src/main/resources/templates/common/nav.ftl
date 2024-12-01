@@ -7,5 +7,6 @@
                 <a href="/json">Json格式化</a>
                 <a href="/abort">关于</a>
             </div>
+<#--             <a href="/admin/add">发布</a>-->
         </nav>
 </header>

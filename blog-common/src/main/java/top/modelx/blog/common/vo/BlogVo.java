@@ -1,5 +1,6 @@
 package top.modelx.blog.common.vo;
 
+import org.springframework.web.multipart.MultipartFile;
 import top.modelx.blog.common.table.entity.BlogArticle;
 
 import java.util.List;
@@ -25,6 +26,12 @@ public class BlogVo extends BlogArticle {
      */
     private List tags;
 
+    /**
+     * 内容
+     */
+    private String content;
+
+
     public String getCategoryName() {
         return categoryName;
     }
@@ -47,5 +54,13 @@ public class BlogVo extends BlogArticle {
 
     public void setTags(List tags) {
         this.tags = tags;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <rect width="32" height="32" rx="4" fill="#f1f2f6"/>
+    <path d="M16 6 L6 16 L26 16 Z" fill="#95a5a6"/>
+    <rect x="10" y="16" width="12" height="10" fill="#34495e"/>
+    <rect x="12" y="18" width="3" height="3" fill="#3498db"/>
+    <rect x="17" y="18" width="3" height="3" fill="#2ecc71"/>
+    <path d="M10 26 L22 26" stroke="#2c3e50" stroke-width="2"/>
+    <text x="16" y="31" text-anchor="middle" font-size="6" fill="#2c3e50">modelx.top</text>
+</svg>
