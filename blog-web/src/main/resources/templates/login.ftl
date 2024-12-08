@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>码农小屋 - 登录</title>
+    <title>码农小屋-登陆</title>
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
     <style>
         * {
             margin: 0;
@@ -226,24 +227,30 @@
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ username, password })
+                        body: JSON.stringify({ email:username, password:password })
                     });
 
                     const data = await response.json();
 
                     if (response.ok) {
-                        // 登录成功，重定向到首页
-                        window.location.href = '/';
-                    } else {
-                        // 登录失败处理
-                        if (data.remainingTime > 0) {
-                            // 显示剩余等待时间
-                            startTimer(data.remainingTime);
-                        } else {
-                            // 显示错误信息
-                            document.getElementById('passwordError').textContent = data.message;
+
+                        console.log('data',data);
+                        if(data.code===200){
+                            // 登录成功，重定向到首页
+                            window.localStorage.setItem('x-token',data.x-token)
+                            window.localStorage.setItem('nickname',data.nickname)
+                            window.location.href = '/';
+
+                        }else{
+                            document.getElementById('passwordError').textContent = data.msg;
                             document.getElementById('passwordError').style.display = 'block';
                         }
+
+                    } else {
+                        // 登录失败处理,显示错误信息
+                        document.getElementById('passwordError').textContent = data.message;
+                        document.getElementById('passwordError').style.display = 'block';
+
                     }
                 } catch (error) {
                     console.error('Error:', error);
@@ -266,7 +273,7 @@
                 const intervalId = setInterval(() => {
                     const minutes = Math.floor(seconds / 60);
                     const remainingSeconds = seconds % 60;
-                    timer.textContent = `请等待 ${minutes}:${remainingSeconds.toString().padStart(2, '0')} 后重试`;
+                    timer.textContent = `请等待片刻后重试！`;
                     
                     if (seconds <= 0) {
                         clearInterval(intervalId);

@@ -53,7 +53,7 @@ public class AdminController {
     ) {
 
         String ip= IpUtil.getClientIpAddress(request);
-        String userId= SessionUtil.getUserId(request);
+        Integer userId= SessionUtil.getUserId(request);
 
         try {
             BlogArticle b = new BlogArticle();

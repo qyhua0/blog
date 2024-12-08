@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 标签表
+ * 浏览记录表
  * </p>
  *
  * @author zhenhua
  * @since 2024-12-05
  */
-@TableName("blog_tags")
-public class BlogTags implements Serializable {
+@TableName("blog_view_log")
+public class BlogViewLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,10 +24,22 @@ public class BlogTags implements Serializable {
     private Integer id;
 
     /**
-     * 标签名称
+     * 文章ID
      */
-    @TableField("name")
-    private String name;
+    @TableField("article_id")
+    private Integer articleId;
+
+    /**
+     * 用户ID
+     */
+    @TableField("user_id")
+    private Integer userId;
+
+    /**
+     * ip信息
+     */
+    @TableField("ip_addr")
+    private String ipAddr;
 
     @TableField("created_time")
     private LocalDateTime createdTime;
@@ -40,12 +52,28 @@ public class BlogTags implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getIpAddr() {
+        return ipAddr;
+    }
+
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -58,9 +86,11 @@ public class BlogTags implements Serializable {
 
     @Override
     public String toString() {
-        return "BlogTags{" +
+        return "BlogViewLog{" +
             "id = " + id +
-            ", name = " + name +
+            ", articleId = " + articleId +
+            ", userId = " + userId +
+            ", ipAddr = " + ipAddr +
             ", createdTime = " + createdTime +
         "}";
     }

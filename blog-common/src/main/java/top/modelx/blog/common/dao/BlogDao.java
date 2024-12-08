@@ -21,5 +21,5 @@ public interface BlogDao {
 
     List<BlogCategoriesVo> getCategoriesList();
 
-    BlogVo getBlogBy(@Param("blogId")Long blogId);
+    BlogVo getBlogBy(@Param("blogId")Integer blogId);
 }

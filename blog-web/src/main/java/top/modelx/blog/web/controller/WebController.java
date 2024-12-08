@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import top.modelx.blog.common.service.BlogService;
-import top.modelx.blog.common.table.entity.BlogArticle;
+import top.modelx.blog.common.service.LoginService;
+import top.modelx.blog.common.service.RedisService;
 import top.modelx.blog.common.table.entity.BlogArticleContent;
 import top.modelx.blog.common.table.entity.SysUser;
 import top.modelx.blog.common.table.service.impl.BlogArticleContentServiceImpl;
@@ -41,6 +41,13 @@ public class WebController {
 
     @Autowired
     SysUserServiceImpl sysUserService;
+
+    @Autowired
+    LoginService loginService;
+
+
+    @Autowired
+    RedisService redisService;
 
 
     /**
@@ -95,11 +102,17 @@ public class WebController {
      * @return
      */
     @GetMapping("/view/{blogId}")
-    public ModelAndView view(@PathVariable Long blogId) {
+    public ModelAndView view(HttpServletRequest request, @PathVariable Integer blogId) {
 
 
         BlogVo blogArticle = blogService.getBlogBy(blogId);
         BlogArticleContent content = blogArticleContentService.lambdaQuery().eq(BlogArticleContent::getBlogId, blogId).one();
+
+        String ip= IpUtil.getClientIpAddress(request);
+        Integer userId=SessionUtil.getUserId(request);
+
+        int total= blogArticle.getViewCount()+1;
+        blogService.logView(ip,userId,blogId,total);
 
         // 创建 ModelAndView 并添加数据
         ModelAndView modelAndView = new ModelAndView("view");
@@ -131,31 +144,48 @@ public class WebController {
     }
 
 
+    /**
+     * 登录页面
+     *
+     * @return
+     */
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
 
+    /**
+     * 登录
+     *
+     * @return
+     */
     @PostMapping(value = "/doLogin")
     public ResponseEntity<?> doLogin(
-            HttpServletRequest request,
-            @RequestParam("userName") String userName,
-            @RequestParam("password") Integer password) {
+            HttpServletRequest request,@RequestBody SysUser user) {
 
         JSONObject json= new JSONObject();
 
+        String username=user.getEmail();
+        String password=user.getPassword();
 
-        if (userName != null && password != null) {
 
-            SysUser sysUser =sysUserService.lambdaQuery().eq(SysUser::getEmail,userName)
-                            .eq(SysUser::getPassword,password).last("limit 1").one();
+
+        if (username != null && password != null) {
+
+            SysUser sysUser =loginService.login(username,password);
 
             if(sysUser!=null){
 
                 json.put("code",200);
                 json.put("msg","登陆成功");
-                json.put("x-token", UUID.randomUUID());
+                String token=UUID.randomUUID().toString();
+                json.put("x-token", token);
+                json.put("nickname", sysUser.getNickname());
+
+                redisService.saveLoginToken(token,sysUser);
+
+
                 return ResponseEntity.ok("200");
             }
 

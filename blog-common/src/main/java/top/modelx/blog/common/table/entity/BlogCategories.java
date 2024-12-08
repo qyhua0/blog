@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author zhenhua
- * @since 2024-12-01
+ * @since 2024-12-05
  */
 @TableName("blog_categories")
 public class BlogCategories implements Serializable {

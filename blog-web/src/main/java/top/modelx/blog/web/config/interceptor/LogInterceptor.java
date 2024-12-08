@@ -55,6 +55,7 @@ public class LogInterceptor implements HandlerInterceptor {
         // 获取User-Agent
         accessLog.setUserAgent(request.getHeader("User-Agent"));
 
+
         // 保存日志
         accessLogService.save(accessLog);
 

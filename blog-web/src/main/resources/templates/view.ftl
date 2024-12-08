@@ -216,10 +216,10 @@
 <main >
     <article class="article-detail">
         <header class="article-header">
-            <h1 class="article-title">深入理解React Hooks的工作原理</h1>
+            <h1 class="article-title">${blog.title}</h1>
             <div class="article-meta">
                 发布于 ${blog.createTime?date} | 作者: ${blog.authorName} |
-                分类: ${blog.categoryName} | 阅读: 1280
+                分类: ${blog.categoryName} | 阅读: ${blog.viewCount}
             </div>
         </header>
 
@@ -259,9 +259,6 @@
 <script>
 
     let content = document.getElementById('div-view-org').innerHTML;
-
-    console.log('content',content);
-
     document.addEventListener('DOMContentLoaded', function() {
 
         const editor = new toastui.Editor({
@@ -277,7 +274,6 @@
 
         // 设置为只读模式
         editor.setOptions({ readOnly: true });
-
         // 动态设置初始值
        // editor.setHTML(content);
 
