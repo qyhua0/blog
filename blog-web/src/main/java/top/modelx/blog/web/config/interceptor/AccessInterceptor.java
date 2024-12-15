@@ -39,10 +39,12 @@ public class AccessInterceptor implements HandlerInterceptor {
 
     private boolean isAuthenticated(HttpServletRequest request) {
 
-        String token = request.getHeader("x-token");
+        String token = request.getHeader("authorization");
         if(token==null||token.length()==0){
             return false;
         }
+
+        token=token.replace("Bearer ","");
 
         String key=RedisKeyUtil.getLoginTokenKey(token);
         SysUser sysUser =  redisService.getUserByToken(key);

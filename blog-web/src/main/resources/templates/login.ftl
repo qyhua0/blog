@@ -237,8 +237,9 @@
                         console.log('data',data);
                         if(data.code===200){
                             // 登录成功，重定向到首页
-                            window.localStorage.setItem('x-token',data.x-token)
-                            window.localStorage.setItem('nickname',data.nickname)
+                            console.log('login ok',data);
+                            window.localStorage.setItem('x-token',data.token);
+                            window.localStorage.setItem('nickname',data.nickname);
                             window.location.href = '/';
 
                         }else{

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +25,7 @@ import java.util.List;
  * 管理员操作
  * @author zhehua
  */
+@RequestMapping("/admin")
 @Controller
 public class AdminController {
 
@@ -36,7 +38,7 @@ public class AdminController {
     private String uploadDir;
 
 
-    @GetMapping("/admin/add")
+    @GetMapping("/add")
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("edit");
         return modelAndView;

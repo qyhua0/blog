@@ -180,13 +180,12 @@ public class WebController {
                 json.put("code",200);
                 json.put("msg","登陆成功");
                 String token=UUID.randomUUID().toString();
-                json.put("x-token", token);
+                json.put("token", token);
                 json.put("nickname", sysUser.getNickname());
 
                 redisService.saveLoginToken(token,sysUser);
 
-
-                return ResponseEntity.ok("200");
+                return ResponseEntity.ok(json.toJSONString());
             }
 
         }

@@ -463,14 +463,19 @@
             }
 
             try {
+                let token = localStorage.getItem('x-token');
                 const response = await fetch('/admin/save', {
                     method: 'POST',
+                    headers: {
+                        Authorization: `Bearer `+token,
+                    },
                     body: formData
                 });
 
+                console.log('Response:', response);
                 if (response.ok) {
                     alert('文章发布成功！');
-                    window.location.href = '/articles';
+                   // window.location.href = '/';
                 } else {
                     alert('发布失败，请重试');
                 }
