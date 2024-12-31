@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <#include "/common/header.ftl">
-
 
 <body>
 <#include "/common/nav.ftl">
-
 
 <main>
         <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
@@ -206,10 +203,14 @@
                 <label for="category" class="required">分类</label>
                 <select id="category" name="category" class="form-control">
                     <option value="">选择分类</option>
-                    <option value="react">React</option>
-                    <option value="python">Python</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="ml">机器学习</option>
+                    <#list categories as c>
+                        <option value="${c.id}"  >${c.name}</option>
+                    </#list>
+
+<#--                    <option value=1>前端开发</option>-->
+<#--                    <option value=2>后端开发</option>-->
+<#--                    <option value=3>机器学习</option>-->
+<#--                    <option value=4>人工智能</option>-->
                 </select>
                 <div class="error-message" id="categoryError">请选择文章分类</div>
             </div>
@@ -220,21 +221,24 @@
     <div class="form-group">
         <label for="tags" class="required">标签</label>
         <div class="tags-container" id="tagsContainer">
-            <div class="tag-item" data-tag="frontend">前端开发</div>
-            <div class="tag-item" data-tag="backend">后端开发</div>
-            <div class="tag-item" data-tag="database">数据库</div>
-            <div class="tag-item" data-tag="cloud">云计算</div>
-            <div class="tag-item" data-tag="devops">DevOps</div>
-            <div class="tag-item" data-tag="security">安全</div>
-            <div class="tag-item" data-tag="architecture">架构设计</div>
-            <div class="tag-item" data-tag="testing">测试</div>
-            <div class="tag-item" data-tag="mobile">移动开发</div>
-            <div class="tag-item" data-tag="ai">人工智能</div>
-            <div class="tag-item" data-tag="bigdata">大数据</div>
-            <div class="tag-item" data-tag="blockchain">区块链</div>
-            <div class="tag-item" data-tag="linux">Linux</div>
-            <div class="tag-item" data-tag="network">网络</div>
-            <div class="tag-item" data-tag="tools">开发工具</div>
+            <#list tags as tag>
+                <div class="tag-item" data-tag="frontend">${tag.name}</div>
+
+            </#list>
+<#--            <div class="tag-item" data-tag="backend">后端开发</div>-->
+<#--            <div class="tag-item" data-tag="database">数据库</div>-->
+<#--            <div class="tag-item" data-tag="cloud">云计算</div>-->
+<#--            <div class="tag-item" data-tag="devops">DevOps</div>-->
+<#--            <div class="tag-item" data-tag="security">安全</div>-->
+<#--            <div class="tag-item" data-tag="architecture">架构设计</div>-->
+<#--            <div class="tag-item" data-tag="testing">测试</div>-->
+<#--            <div class="tag-item" data-tag="mobile">移动开发</div>-->
+<#--            <div class="tag-item" data-tag="ai">人工智能</div>-->
+<#--            <div class="tag-item" data-tag="bigdata">大数据</div>-->
+<#--            <div class="tag-item" data-tag="blockchain">区块链</div>-->
+<#--            <div class="tag-item" data-tag="linux">Linux</div>-->
+<#--            <div class="tag-item" data-tag="network">网络</div>-->
+<#--            <div class="tag-item" data-tag="tools">开发工具</div>-->
         </div>
         <div class="tags-limit-hint">请选择1-5个标签</div>
         <div class="error-message" id="tagsError">请至少选择一个标签</div>

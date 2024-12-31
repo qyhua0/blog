@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import top.modelx.blog.common.dao.BlogDao;
 import top.modelx.blog.common.table.entity.*;
 import top.modelx.blog.common.table.service.impl.BlogArticleServiceImpl;
+import top.modelx.blog.common.table.service.impl.BlogCategoriesServiceImpl;
+import top.modelx.blog.common.table.service.impl.BlogTagsServiceImpl;
 import top.modelx.blog.common.table.service.impl.BlogViewLogServiceImpl;
 import top.modelx.blog.common.vo.BlogCategoriesVo;
 import top.modelx.blog.common.vo.BlogVo;
@@ -30,6 +32,12 @@ public class BlogService {
 
     @Autowired
     BlogViewLogServiceImpl blogViewLogService;
+
+    @Autowired
+    BlogCategoriesServiceImpl blogCategoriesService;
+
+    @Autowired
+    BlogTagsServiceImpl blogTagsService;
 
 
 
@@ -103,5 +111,14 @@ public class BlogService {
         blogArticleService.lambdaUpdate().eq(BlogArticle::getId,blogId).set(BlogArticle::getViewCount,tatal).update();
 
 
+    }
+
+    public List<BlogCategories> allBlogCategoriesList() {
+
+       return  blogCategoriesService.list();
+    }
+
+    public List<BlogTags> allBlogTagList() {
+        return blogTagsService.list();
     }
 }

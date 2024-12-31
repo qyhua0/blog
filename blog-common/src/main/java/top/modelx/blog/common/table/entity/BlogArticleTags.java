@@ -10,7 +10,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zhenhua
- * @since 2024-12-05
+ * @since 2024-12-28
  */
 @TableName("blog_article_tags")
 public class BlogArticleTags implements Serializable {

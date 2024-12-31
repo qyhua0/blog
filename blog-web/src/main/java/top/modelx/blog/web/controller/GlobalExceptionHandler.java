@@ -46,18 +46,18 @@ public class GlobalExceptionHandler {
     }
 
     // 通用异常处理
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleGeneralError(
-            Exception ex,
-            HttpServletRequest request) {
-
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("timestamp", LocalDateTime.now());
-        errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        errorResponse.put("error", "Internal Server Error");
-        errorResponse.put("message", ex.getMessage());
-        errorResponse.put("path", request.getRequestURI());
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Map<String, Object>> handleGeneralError(
+//            Exception ex,
+//            HttpServletRequest request) {
+//
+//        Map<String, Object> errorResponse = new HashMap<>();
+//        errorResponse.put("timestamp", LocalDateTime.now());
+//        errorResponse.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+//        errorResponse.put("error", "Internal Server Error");
+//        errorResponse.put("message", ex.getMessage());
+//        errorResponse.put("path", request.getRequestURI());
+//
+//        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

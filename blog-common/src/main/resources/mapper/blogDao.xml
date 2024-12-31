@@ -28,10 +28,8 @@
 
     <select id="getCategoriesList" resultType="top.modelx.blog.common.vo.BlogCategoriesVo">
         SELECT c.*,IFNULL(b.using_count,0) AS using_count FROM blog_categories c
-               LEFT JOIN (SELECT category_id ,COUNT(id) AS using_count FROM blog_article WHERE STATUS='P' GROUP BY category_id ) b ON b.category_id=c.id
-
-        ORDER BY `order`
-
+               LEFT JOIN (SELECT category_id ,COUNT(id) AS using_count FROM blog_article
+               WHERE STATUS='P' GROUP BY category_id ) b ON b.category_id=c.id
     </select>
     <select id="getBlogBy" resultType="top.modelx.blog.common.vo.BlogVo">
 

@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import top.modelx.blog.common.service.BlogService;
 import top.modelx.blog.common.table.entity.BlogArticle;
+import top.modelx.blog.common.table.entity.BlogCategories;
+import top.modelx.blog.common.table.entity.BlogTags;
 import top.modelx.blog.common.util.FileUploadUtil;
 import top.modelx.blog.common.util.IpUtil;
 import top.modelx.blog.common.util.SessionUtil;
@@ -41,6 +43,15 @@ public class AdminController {
     @GetMapping("/add")
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("edit");
+
+        List<BlogCategories> blogCategories=blogService.allBlogCategoriesList();
+        modelAndView.addObject("categories",blogCategories);
+
+        List<BlogTags> blogTagList=blogService.allBlogTagList();
+        modelAndView.addObject("tags",blogCategories);
+
+
+
         return modelAndView;
     }
 

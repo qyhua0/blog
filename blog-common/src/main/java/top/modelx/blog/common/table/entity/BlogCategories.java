@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author zhenhua
- * @since 2024-12-05
+ * @since 2024-12-28
  */
 @TableName("blog_categories")
 public class BlogCategories implements Serializable {
@@ -44,8 +44,8 @@ public class BlogCategories implements Serializable {
     /**
      * 排序
      */
-    @TableField("order")
-    private Integer order;
+    @TableField("order_by")
+    private Integer orderBy;
 
     @TableField("created_time")
     private LocalDateTime createdTime;
@@ -82,12 +82,12 @@ public class BlogCategories implements Serializable {
         this.parentId = parentId;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getOrderBy() {
+        return orderBy;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setOrderBy(Integer orderBy) {
+        this.orderBy = orderBy;
     }
 
     public LocalDateTime getCreatedTime() {
@@ -105,7 +105,7 @@ public class BlogCategories implements Serializable {
             ", name = " + name +
             ", description = " + description +
             ", parentId = " + parentId +
-            ", order = " + order +
+            ", orderBy = " + orderBy +
             ", createdTime = " + createdTime +
         "}";
     }
